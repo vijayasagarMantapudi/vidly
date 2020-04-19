@@ -1,18 +1,9 @@
 const express = require('express')
-const fs = require('fs');
-const Joi = require('joi')
+const fs = require('fs')
 const _ = require('lodash')
 const mongoose = require('mongoose')
+const {Genre, validateGenre} = require('../models/genre')
 // MongoDB and CRUD ops
-const genreSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        minlength: 3
-    }
-})
-
-const Genre = mongoose.model('Genre', genreSchema)
 
 async function fetchAllGenres() {
     let result = await Genre.find()
@@ -35,12 +26,7 @@ async function deleteGenre(id) {
     return await Genre.findByIdAndRemove(id)
 }
 
-function validateGenre(genre) {
-    const schema = {
-        "name": Joi.string().min(3).required()
-    };
-    return Joi.validate(genre, schema)
-}
+
 const route = express.Router()
 
 route.get('/', async (req, res) => {

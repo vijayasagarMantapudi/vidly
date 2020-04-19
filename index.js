@@ -2,11 +2,13 @@ const express = require('express')
 const mongoose = require('mongoose')
 const homeRoute = require('./routes/homePage')
 const genres = require('./routes/genres')
+const customers = require('./routes/customers')
 
 const vidlyApp = express()
 vidlyApp.use(express.json())
 vidlyApp.use('/vidly', homeRoute)
 vidlyApp.use('/vidly/api/genres', genres)
+vidlyApp.use('/vidly/api/customers', customers)
 
 vidlyApp.listen(3000)
 console.log('** listening on 3000')
